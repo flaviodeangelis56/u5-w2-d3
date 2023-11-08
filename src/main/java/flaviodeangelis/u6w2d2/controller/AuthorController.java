@@ -39,7 +39,7 @@ public class AuthorController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void findByIdAndDelete(@PathVariable long id) {
+    public void findByIdAndDelete(@PathVariable long id) throws NotFoundException {
         authorService.findByIdAndDelete(id);
     }
 }

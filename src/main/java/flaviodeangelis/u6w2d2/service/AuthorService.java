@@ -1,6 +1,7 @@
 package flaviodeangelis.u6w2d2.service;
 
 import flaviodeangelis.u6w2d2.entities.Author;
+import flaviodeangelis.u6w2d2.exception.BadRequestException;
 import flaviodeangelis.u6w2d2.exception.NotFoundException;
 import flaviodeangelis.u6w2d2.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ public class AuthorService {
     private AuthorRepository authorRepository;
 
     public Author save(Author body) {
+        authorRepository.findByEmail(body.getEmail()).ifPresent(author -> new BadRequestException("Autore come email " + author.getEmail() + " già esistente"));
+        body.setAvatar("http://ui-avatars.com/api/?name=" + body.getName() + "+" + body.getSurname());
         return authorRepository.save(body);
     }
 

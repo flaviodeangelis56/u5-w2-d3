@@ -29,7 +29,7 @@ public class BlogController {
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public BlogPost sevePost(@RequestBody BlogPost body) {
+    public BlogPost sevePost(@RequestBody BlogPost body) throws NotFoundException {
         return blogService.save(body);
     }
 
@@ -40,7 +40,7 @@ public class BlogController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void findByIdAndDelete(@PathVariable long id) {
+    public void findByIdAndDelete(@PathVariable long id) throws NotFoundException {
         blogService.findByIdAndDelete(id);
     }
 }

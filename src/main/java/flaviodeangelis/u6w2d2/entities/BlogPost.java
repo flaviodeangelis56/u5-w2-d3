@@ -3,10 +3,8 @@ package flaviodeangelis.u6w2d2.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
-@ToString
 @Setter
 @Entity
 @Table(name = "blog_posts")
@@ -22,4 +20,16 @@ public class BlogPost {
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
     private Author author;
+
+    @Override
+    public String toString() {
+        return "flaviodeangelis.u6w2d2.entities.BlogPost{" +
+                "id=" + id +
+                ", category='" + category + '\'' +
+                ", title='" + title + '\'' +
+                ", cover='" + cover + '\'' +
+                ", content='" + content + '\'' +
+                ", readingTime=" + readingTime +
+                '}';
+    }
 }

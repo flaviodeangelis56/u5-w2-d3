@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -19,9 +20,9 @@ public class Author {
     private String name;
     private String surname;
     private String email;
-    private String birthDate;
+    private LocalDate birthDate;
     private String avatar;
-    @OneToMany(mappedBy = "author", cascade = CascadeType.REMOVE)
+    @OneToMany(cascade = CascadeType.REMOVE)
     private List<BlogPost> blogPosts;
 
 }

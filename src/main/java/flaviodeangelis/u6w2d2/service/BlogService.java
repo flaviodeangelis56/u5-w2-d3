@@ -1,19 +1,28 @@
 package flaviodeangelis.u6w2d2.service;
 
+import flaviodeangelis.u6w2d2.entities.Author;
 import flaviodeangelis.u6w2d2.entities.BlogPost;
 import flaviodeangelis.u6w2d2.exception.NotFoundException;
+import flaviodeangelis.u6w2d2.repository.AuthorRepository;
 import flaviodeangelis.u6w2d2.repository.BlogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class BlogService {
     @Autowired
     private BlogRepository blogRepository;
+    @Autowired
+    private AuthorRepository authorRepository;
 
-    public BlogPost save(BlogPost body) {
+    public BlogPost save(BlogPost body) throws NotFoundException {
+        Random rdnm = new Random();
+        long id = rdnm.nextInt(1, 5);
+        Author author = authorRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
+        body.setAuthor(author);
         return blogRepository.save(body);
     }
 
