@@ -6,9 +6,12 @@ import flaviodeangelis.u6w2d2.exception.NotFoundException;
 import flaviodeangelis.u6w2d2.repository.AuthorRepository;
 import flaviodeangelis.u6w2d2.repository.BlogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Random;
 
 @Service
@@ -26,8 +29,9 @@ public class BlogService {
         return blogRepository.save(body);
     }
 
-    public List<BlogPost> getBlogPosts() {
-        return blogRepository.findAll();
+    public Page<BlogPost> getBlogPosts(int page, int size, String orderBy) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(orderBy));
+        return blogRepository.findAll(pageable);
     }
 
     public BlogPost findById(long id) throws NotFoundException {
